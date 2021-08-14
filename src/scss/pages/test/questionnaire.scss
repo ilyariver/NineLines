@@ -1,0 +1,91 @@
+.questionnaire {
+	&__section {
+		padding: 2rem 1rem;
+		background-image: url("../images/background.jpg");
+		background-size: auto;
+
+		&:not(:last-child) {
+			border-bottom: 2px solid $color-background;
+		}
+
+		&--input {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		&--skills {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+	}
+
+	&__img {
+		width: 10rem;
+		border-radius: 50%;
+	}
+
+	&__form {
+		margin-top: 2rem;
+		width: 100%;
+	}
+
+	&__inputs {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		//margin-bottom: 1rem;
+	}
+
+	&__input-label {
+		position: absolute;
+		top: 10px;
+		left: 0;
+		color: $gray-fonts;
+		font-weight: 900;
+		transition: top 0.2s $easing-back-in, font-size 0.2s $easing-back-in;
+	}
+
+	&__input-label.is-active {
+		top: 3px;
+		font-size: 7px;
+	}
+
+	&__input {
+		position: relative;
+		height: 2.5rem;
+		background-color: transparent;
+		border: none;
+		border-bottom: 2px solid #333;
+		z-index: 2;
+	}
+
+	&__checkboxes-content {
+		display: flex;
+		align-items: center;
+		margin-bottom: 2rem;
+		width: calc(100% / 2 - 10px);
+	}
+
+	&__checkbox {
+		margin-right: 0.5rem;
+		width: 1.2rem;
+		height: 1.2rem;
+		background-image: url("../images/unchecked.svg");
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		&.is-checked {
+			background-image: url("../images/checked.svg");
+		}
+	}
+
+	&__checkbox-label {
+		font-weight: 900;
+		color: $gray-fonts;
+		cursor: default;
+		user-select: none;
+	}
+}

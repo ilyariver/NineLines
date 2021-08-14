@@ -1,0 +1,28 @@
+.questionnaire
+	.questionnaire__section.questionnaire__section--input
+		+lazyPicture({
+			src: `${baseDir}/images/avatar.png`,
+			alt: 'Аватар',
+		}).questionnaire__img
+
+		form.questionnaire__form.js-form
+			each value, key in personalData
+				- const upperCaseWord = key.toUpperCase()
+
+				.questionnaire__inputs.js-all-inputs
+					span.questionnaire__input-label.js-input-label= upperCaseWord
+
+					if value
+						input(type="text" value= value).questionnaire__input
+					else
+						input(type="text").questionnaire__input
+
+	.questionnaire__section.questionnaire__section--skills.js-checkbox-content
+		each value in checkboxesName
+			.questionnaire__checkboxes-content.js-checkbox(data-skill= value.toLowerCase())
+				.questionnaire__checkbox.js-checkbox-mark
+
+				span.questionnaire__checkbox-label.js-checkbox-label= value
+
+	.questionnaire__section.proficiency
+		include ../test/indicator
