@@ -1,38 +1,80 @@
-;(function() {
-	/**
-	 * Индикатор JS скилла
-	 * */
-	const indicatorArrow = document.querySelector('.js-indicator-arrow');
-	const checkboxContent = document.querySelector('.js-checkbox-content');
-	const checkbox = document.querySelectorAll('.js-checkbox');
-	const checkboxMark = document.querySelector('.js-checkbox-mark');
-	const oneIndicatorDivision = 60;
-	let startingPoint = 270;
+/**
+ * Индикатор JS скилла
+ * */
+const indicatorArrow = document.querySelector('.js-indicator-arrow');
+const checkboxContent = document.querySelector('.js-checkbox-content');
+const checkboxMark = document.querySelectorAll('.js-checkbox-mark');
+const indicatedSkills = ['vanillajs','gulp','angular','jquery'];
+const oneIndicatorDivision = 180 / indicatedSkills.length;
+const numberIndicatorElements = 1000 / indicatedSkills.length;
+let startingPoint = 270;
+let startKnowledgeCounter = 0;
 
-	checkboxContent.addEventListener('click', e => {
-		const target = e.target;
-		const targetChecked = target.classList.contains('js-checkbox-mark');
-		const targetInputLabel = target.classList.contains('js-checkbox-label');
+const easeCounterChanged = () => {
+	const roundingDivision = Math.ceil(numberIndicatorElements);
 
+	$.easing.easeIn = (x, t, b, c, d) => {
+		return (t === d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+	};
 
-		if (!targetChecked && !targetInputLabel) {
+	$('.js-knowledge-counter').each(function() {
+		$(this).prop('counter', 0 - roundingDivision).animate({
+			counter: $(this).text(),
+		}, {
+			duration: 470,
+			easing: 'easeIn',
+			step(val) {
+				$(this).text(Math.abs(Math.ceil(val)));
+			},
+		});
+	});
+};
+
+const addValueToIndicator = (action, element) => {
+	const levelLowerText = element.nextElementSibling.textContent.toLowerCase();
+	const knowledgeCounter = document.querySelector('.js-knowledge-counter');
+
+	indicatedSkills.forEach(item => {
+		if (levelLowerText === item) {
+			const roundingDivision = Math.ceil(numberIndicatorElements);
+			const renderKnowledgeCounter = action === 'add' ?
+				startKnowledgeCounter += roundingDivision :
+				startKnowledgeCounter -= roundingDivision;
+			const roundingAsInteger = (Math.round(parseInt(renderKnowledgeCounter, 10) / 10) * 10);
+
+			startingPoint = action === 'add' ? startingPoint += oneIndicatorDivision : startingPoint -= oneIndicatorDivision;
+			knowledgeCounter.innerHTML = typeof roundingAsInteger === 'number' ? roundingAsInteger : 0;
+
+			easeCounterChanged();
+
+			indicatorArrow.style.transform = `translateX(-50%) rotate(${startingPoint}deg)`;
+		}
+	});
+};
+
+checkboxContent.addEventListener('click', e => {
+	const target = e.target;
+	const targetChecked = target.classList.contains('js-checkbox-mark');
+	const targetInputLabel = target.classList.contains('js-checkbox-label');
+
+	if (!targetChecked && !targetInputLabel) {
+		return;
+	}
+
+	const currentCheckbox = target.closest('.js-checkbox');
+	const currentDataset = currentCheckbox.dataset.skill;
+
+	checkboxMark.forEach(mark => {
+		if (currentDataset !== mark.nextElementSibling.textContent.toLowerCase()) {
 			return;
 		}
-		const currentCheckbox = target.closest('.js-checkbox');
-		const currentDataset = currentCheckbox.dataset.skill;
-		const currentCheckboxMark = currentCheckbox.querySelector('.js-checkbox-mark');
 
-		currentCheckboxMark.classList.toggle('is-checked');
-
-		const datum = {
-			currentDataset() {
-				return currentDataset === 'vanillajs' ?
-					startingPoint += oneIndicatorDivision : startingPoint -= oneIndicatorDivision;
-			},
+		if (mark.classList.contains('is-checked')) {
+			addValueToIndicator('remove', mark);
+			mark.classList.remove('is-checked');
 		}
-		console.log(datum.currentDataset())
-		// startingPoint += oneIndicatorDivision;
-		// indicatorArrow.style.transform = `translateX(-50%) rotate(${startingPoint}deg)`;
 
+		addValueToIndicator('add', mark);
+		mark.classList.add('is-checked');
 	});
-})();
+});

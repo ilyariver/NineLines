@@ -10,10 +10,20 @@
 		width: 100%;
 	}
 
+	&__counter {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	&__counter-text {
 		line-height: 1.5;
 		font-weight: 900;
-		font-size: 18px;
+		font-size: 15px;
+	}
+
+	&__counter-numbers {
+		font-size: 30px;
 	}
 
 	&__indicator-arrow {
