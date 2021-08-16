@@ -10,7 +10,7 @@ const numberIndicatorElements = 1000 / indicatedSkills.length;
 let startingPoint = 270;
 let startKnowledgeCounter = 0;
 
-const easeCounterChanged = () => {
+function easeCounterChanged() {
 	const roundingDivision = Math.ceil(numberIndicatorElements);
 
 	$.easing.easeIn = (x, t, b, c, d) => {
@@ -28,9 +28,9 @@ const easeCounterChanged = () => {
 			},
 		});
 	});
-};
+}
 
-const addValueToIndicator = (action, element) => {
+function addValueToIndicator(action, element) {
 	const levelLowerText = element.nextElementSibling.textContent.toLowerCase();
 	const knowledgeCounter = document.querySelector('.js-knowledge-counter');
 
@@ -50,9 +50,9 @@ const addValueToIndicator = (action, element) => {
 			indicatorArrow.style.transform = `translateX(-50%) rotate(${startingPoint}deg)`;
 		}
 	});
-};
+}
 
-checkboxContent.addEventListener('click', e => {
+function listenerChecked(e) {
 	const target = e.target;
 	const targetChecked = target.classList.contains('js-checkbox-mark');
 	const targetInputLabel = target.classList.contains('js-checkbox-label');
@@ -71,10 +71,17 @@ checkboxContent.addEventListener('click', e => {
 
 		if (mark.classList.contains('is-checked')) {
 			addValueToIndicator('remove', mark);
-			mark.classList.remove('is-checked');
+			return mark.classList.remove('is-checked');
 		}
 
 		addValueToIndicator('add', mark);
 		mark.classList.add('is-checked');
 	});
+}
+
+checkboxContent.addEventListener('click', listenerChecked);
+checkboxContent.addEventListener('keydown', e => {
+	if (e.code === 'Space') {
+		listenerChecked(e);
+	}
 });

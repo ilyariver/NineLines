@@ -9,7 +9,7 @@
 			each value, key in personalData
 				- const upperCaseWord = key.toUpperCase()
 
-				.questionnaire__inputs.js-all-inputs
+				.questionnaire__inputs.js-all-inputs.focus-visible
 					span.questionnaire__input-label.js-input-label= upperCaseWord
 
 					if value
@@ -18,11 +18,15 @@
 						input(type="text").questionnaire__input
 
 	.questionnaire__section.questionnaire__section--skills.js-checkbox-content
-		each value in checkboxesName
-			.questionnaire__checkboxes-content.js-checkbox(data-skill= value.toLowerCase())
-				.questionnaire__checkbox.js-checkbox-mark
+		h1.questionnaire__title
+			| Навыки
 
-				span.questionnaire__checkbox-label.js-checkbox-label= value
+		.questionnaire__wrap
+			each value in checkboxesName
+				.questionnaire__checkboxes-content.js-checkbox(data-skill= value.toLowerCase())
+					.questionnaire__checkbox.js-checkbox-mark(tabindex="1")
+
+					span.questionnaire__checkbox-label.js-checkbox-label= value
 
 	.questionnaire__section.proficiency
 		include ../test/indicator

@@ -24,6 +24,7 @@
 
 	&__counter-numbers {
 		font-size: 30px;
+		color: $blue-fonts;
 	}
 
 	&__indicator-arrow {
@@ -36,5 +37,36 @@
 		background-image: url("../images/arrow.svg");
 		background-repeat: no-repeat;
 		transition: transform 1s $easing-back-out;
+	}
+
+	@include tablet-test {
+		display: flex;
+
+		&__indicator {
+			margin-right: 4.2rem;
+			margin-bottom: 0;
+			padding: 40px 0 55px;
+		}
+
+		&__indicator-arrow {
+			bottom: 4px;
+		}
+
+		&__counter {
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: stretch;
+			padding-top: 2.8rem;
+		}
+
+		&__counter-text {
+			margin-bottom: 9px;
+			font-size: 17px;
+		}
+
+		&__counter-numbers {
+			font-size: 49px;
+			font-weight: 900;
+		}
 	}
 }

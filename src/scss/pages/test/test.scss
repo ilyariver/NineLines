@@ -2,4 +2,8 @@
 	padding-top: 2rem;
 	padding-bottom: 2rem;
 	background-color: $color-background;
+
+	@include tablet-test {
+		padding-top: 3.8rem;
+	}
 }

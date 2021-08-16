@@ -1,4 +1,7 @@
 .questionnaire {
+	margin-right: auto;
+	margin-left: auto;
+
 	&__section {
 		padding: 2rem 1rem;
 		background-image: url("../images/background.jpg");
@@ -9,22 +12,39 @@
 		}
 
 		&--input {
+			position: relative;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-		}
 
-		&--skills {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			flex-wrap: wrap;
+			&::after {
+				content: "";
+				position: absolute;
+				bottom: 75px;
+				right: 0;
+				width: 126px;
+				height: 116px;
+				background-image: url("../images/print.svg");
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
 		}
+	}
+
+	&__title {
+		margin: 1rem 0 1.4rem;
+		font-size: 18px;
+	}
+
+	&__wrap {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
 	}
 
 	&__img {
 		width: 10rem;
-		border-radius: 50%;
 	}
 
 	&__form {
@@ -36,7 +56,6 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		//margin-bottom: 1rem;
 	}
 
 	&__input-label {
@@ -71,8 +90,8 @@
 
 	&__checkbox {
 		margin-right: 0.5rem;
-		width: 1.2rem;
-		height: 1.2rem;
+		min-width: 1.2rem;
+		min-height: 1.2rem;
 		background-image: url("../images/unchecked.svg");
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -88,4 +107,82 @@
 		cursor: default;
 		user-select: none;
 	}
+	@include mobile {
+		width: 280px;
+	}
+
+	@include tablet-test {
+		width: 660px;
+
+		&__section {
+			padding: 1.1rem 1.32rem 0.5rem;
+
+			&:not(:last-child) {
+				border-bottom: 2px solid $color-background;
+			}
+
+			&--input {
+				display: flex;
+				flex-direction: row;
+				align-items: stretch;
+
+				&::after {
+					bottom: 8px;
+					right: 4px;
+					width: 185px;
+					height: 170px;
+				}
+			}
+
+			&--skills {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+		}
+
+		&__img {
+			min-width: 8.5rem;
+			margin-top: 0.8rem;
+			margin-right: 1.5rem;
+		}
+
+		&__form {
+			margin-top: 0;
+			width: 100%;
+		}
+
+		&__input {
+			margin-bottom: 22px;
+			height: 34px;
+		}
+
+		&__input-label {
+			font-size: 13px;
+		}
+
+		&__input-label.is-active {
+			top: 0;
+		}
+
+		&__checkboxes-content {
+			margin-bottom: 2.55rem;
+			width: calc(100% / 4 - 16px);
+
+			&:nth-last-child(5)~& {
+				margin-bottom: 1.6rem;
+			}
+		}
+
+		&__checkbox {
+			width: 1.1rem;
+			height: 1.1rem;
+		}
+
+		&__checkbox-label {
+			font-size: 13px;
+		}
+	}
 }
+
